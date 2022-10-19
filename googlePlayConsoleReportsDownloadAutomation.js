@@ -6,40 +6,43 @@ const tableSelector = 'download-reports-financial-page > console-block-1-column:
 // Input Row Selector, this would usually stay the same
 const rowSelector = ' .particle-table-row'
 
-
 const selector = tableSelector + rowSelector;
 
-const arrayOfElements = [...document.querySelectorAll(selector)]
+let arrayOfElements = [...document.querySelectorAll(selector)]
 console.log(arrayOfElements.map(e=>e.textContent))
 
+// Expands all rows
+arrayOfElements.forEach((i)=>{
+    try{
+    if(i.textContent.includes('arrow_right')){
+        i.querySelector('button').click()
+        }
+    }catch(err){}
+})
+
+// Wait to gather new rows
+setTimeout(()=>{
+
+arrayOfElements = [...document.querySelectorAll(selector)]
+    
 let i = 0
 let interval = setInterval(()=> {
-    if(i > arrayOfElements.length){
+    if(i == arrayOfElements.length){
         clearInterval(interval);
         console.log('Done!')
     }
-    func(i)
-    
+    // Runs download function at current index
+    downloadFunc(i)
     i++;
 }, 1200)
 
- const func = (i) =>{
+ const downloadFunc = (i) =>{
 const el = arrayOfElements[i];
-     console.log(i,el)
-try{
-if(el.textContent.includes('arrow_right')){
-      
-    el.querySelector('button').click()
-  
-    }else{
-       
+    try{
         const downloadBtn = el.querySelector('console-table-download-cell a');
         downloadBtn.click()
-        console.log('clicked')
-            
-        
-    }
-    catch(err){
-    console.eror(err)
-    }
- }
+        console.log('Clicked',el.textContent,'✅')
+        }
+        catch(err){}
+        }
+    },3000)
