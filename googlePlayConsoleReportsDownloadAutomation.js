@@ -9,8 +9,8 @@ const rowSelector = ' .particle-table-row'
 const selector = tableSelector + rowSelector;
 
 let arrayOfElements = [...document.querySelectorAll(selector)]
-console.log(arrayOfElements.map(e=>e.textContent))
 
+console.log('Loading...')
 // Expands all rows
 arrayOfElements.forEach((i)=>{
     try{
@@ -22,7 +22,7 @@ arrayOfElements.forEach((i)=>{
 
 // Wait to gather new rows
 setTimeout(()=>{
-
+console.log('Done Loading! Downloads starting...')
 arrayOfElements = [...document.querySelectorAll(selector)]
     
 let i = 0
